@@ -3,6 +3,7 @@ import tkinter
 from tkinter import *
 import random
 
+#main calculation function
 def calc(team1,am1,team2,am2,total,window,on1):
     dec1 = toDec(am1)
     dec2 = toDec(am2)
@@ -20,16 +21,22 @@ def calc(team1,am1,team2,am2,total,window,on1):
     else:
         TXT.place(relx=0.02,rely=0.25,relwidth=.96,relheight=.63)
 
+#calculates if there is an arbitrage oppurtunity
+#occurs when the gambler's expected value is above one
+#this can be easily calculated with decimal odds 
 def calcOp(d1,d2):
     if (d1+d2)<(d1*d2):
         return True
     return False
 
+#inputs American odds and turns them into decimal odds
+#for easily calculation
 def toDec(a):
     if a > 0 :
         return 1 + (a/100)
     return 1-(100/a)
 
+# calculates break even strategies for arbitrage opportunites
 def brEv(a,b,c,d,e,f,w,TXT,on1):
     if on1!=0:
         betA=on1
@@ -69,10 +76,13 @@ def brEv(a,b,c,d,e,f,w,TXT,on1):
     TXT.insert(INSERT,'\n'+ "Net $"+str(np.round(betB*b-(betA+betB),2))+" on "+t2+" Win.")
     TXT.place(relx=0.02,rely=0.25,relwidth=.96,relheight=.63)
 
+#places objects on the canvas
 def LEP(L,E,X,Y,H,W):
     L.place(relheight=H,relwidth=W*.25,relx=X,rely=Y)
     E.place(relheight=H,relwidth=W*.75,relx=X+(W/4),rely=Y)
 
+    
+#canvas is built here
 window = Tk()
 window.title("Smart Gambling TM")
 aspect=50
